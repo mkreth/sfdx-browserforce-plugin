@@ -1,13 +1,14 @@
-import { core, UX } from '@salesforce/command';
+import { UX } from '@salesforce/command';
+import { Org } from '@salesforce/core';
 import * as assert from 'assert';
 import { Browserforce } from '../src/browserforce';
 
-describe('Browser', function() {
+describe('Browser', function () {
   this.slow('30s');
   this.timeout('2m');
   describe('login()', () => {
     it('should successfully login with valid credentials', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -16,7 +17,7 @@ describe('Browser', function() {
     });
 
     it('should fail login with invalid credentials', async () => {
-      const fakeOrg = await core.Org.create({});
+      const fakeOrg = await Org.create({});
       fakeOrg.getConnection().accessToken = 'invalid';
       const ux = await UX.create();
       const bf = new Browserforce(fakeOrg, ux.cli);
@@ -28,7 +29,7 @@ describe('Browser', function() {
   });
   describe('getMyDomain()', () => {
     it('should determine a my domain for a scratch org', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -39,7 +40,7 @@ describe('Browser', function() {
   });
   describe('getInstanceDomain()', () => {
     it('should determine an instance domain for a scratch org with my domain', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -50,7 +51,7 @@ describe('Browser', function() {
   });
   describe('getLightningUrl()', () => {
     it('should determine a LEX URL for a scratch org with my domain', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -61,7 +62,7 @@ describe('Browser', function() {
   });
   describe('waitForSelectorInFrameOrPage()', () => {
     it('should query a selector in LEX and Classic UI', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -79,7 +80,7 @@ describe('Browser', function() {
   });
   describe('throwPageErrors()', () => {
     it('should throw the page error on internal errors', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();
@@ -93,7 +94,7 @@ describe('Browser', function() {
       await bf.logout();
     });
     it('should not throw any error opening a page', async () => {
-      const defaultScratchOrg = await core.Org.create({});
+      const defaultScratchOrg = await Org.create({});
       const ux = await UX.create();
       const bf = new Browserforce(defaultScratchOrg, ux.cli);
       await bf.login();

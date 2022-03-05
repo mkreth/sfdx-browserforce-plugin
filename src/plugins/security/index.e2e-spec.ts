@@ -1,4 +1,4 @@
-import { core } from '@salesforce/command';
+import { Org } from '@salesforce/core';
 import * as assert from 'assert';
 import * as child from 'child_process';
 import * as path from 'path';
@@ -117,7 +117,7 @@ describe(`${CertificateAndKeyManagement.name} and ${IdentityProvider.name}`, fun
     );
   });
   it('should delete certificates using Metadata API', async () => {
-    const org = await core.Org.create({});
+    const org = await Org.create({});
     const conn = org.getConnection();
     await conn.metadata.delete('Certificate', ['identity_provider', 'Dummy']);
   });

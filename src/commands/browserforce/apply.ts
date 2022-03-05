@@ -1,8 +1,8 @@
-import { core } from '@salesforce/command';
+import { Logger, Messages } from '@salesforce/core';
 import { BrowserforceCommand } from '../../browserforce-command';
 
-core.Messages.importMessagesDirectory(__dirname);
-const messages = core.Messages.loadMessages(
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages(
   'sfdx-browserforce-plugin',
   'browserforce'
 );
@@ -21,7 +21,7 @@ export default class BrowserforceApply extends BrowserforceCommand {
   ];
 
   public async run(): Promise<unknown> {
-    const logger = await core.Logger.root();
+    const logger = await Logger.root();
     this.ux.log(
       `Applying definition file ${
         this.flags.definitionfile
@@ -45,7 +45,7 @@ export default class BrowserforceApply extends BrowserforceCommand {
       if (action && Object.keys(action).length) {
         this.ux.startSpinner(
           `[${driver.name}] ${Object.keys(action)
-            .map(key => {
+            .map((key) => {
               return `changing '${key}' to '${JSON.stringify(action[key])}'`;
             })
             .join('\n')}`

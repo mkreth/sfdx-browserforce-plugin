@@ -1,12 +1,13 @@
-import { core, flags, SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand } from '@salesforce/command';
+import { Messages } from '@salesforce/core';
 import { promises } from 'fs';
 import * as path from 'path';
 import { Browserforce } from './browserforce';
 import { ConfigParser } from './config-parser';
 import * as DRIVERS from './plugins';
 
-core.Messages.importMessagesDirectory(__dirname);
-const messages = core.Messages.loadMessages(
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages(
   'sfdx-browserforce-plugin',
   'browserforce'
 );
